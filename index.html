@@ -200,85 +200,474 @@
     © 2026 TSPSC Visual Learning | Built for Smart Preparation
 </footer>
 <section class="section" id="quiz">
+
     <h2>🎯 TSPSC Visual Quiz</h2>
 
-    <div class="card" style="max-width:700px;margin:auto;text-align:left;">
+    <div class="card" style="max-width:750px;margin:auto;">
 
-        <h3>Question 1</h3>
-<div style="margin:20px 0; text-align:center;">
+        <div id="quizBox"></div>
 
-    <img
-        src="https://commons.wikimedia.org/wiki/Special:Redirect/file/Charminar%20Hyderabad%20front%20view.jpg"
-        alt="Charminar in Hyderabad"
-        style="width:100%; max-width:600px; border-radius:12px;">
-
-    <p style="margin-top:10px; color:#555;">
-        📍 Charminar — Hyderabad, Telangana
-    </p>
-
-</div>
-
-<div style="background:#f1f5ff; padding:20px; border-radius:12px; margin:20px 0;">
-
-    <h3>👀 Look → Understand</h3>
-
-    <p style="line-height:1.6; margin-top:10px;">
-        The Charminar is one of the most recognizable landmarks of Hyderabad.
-        It was built in 1591 and is famous for its four minarets.
-    </p>
-
-    <p style="line-height:1.6; margin-top:10px;">
-        🧠 <b>Memory Trick:</b>
-        CHARMINAR = CHAR + MINAR → Think of the
-        <b>four minarets</b> standing in Hyderabad.
-    </p>
-
-</div>
-        <p style="margin:15px 0;line-height:1.6;">
-            The historic Charminar is located in which city?
-        </p>
-
-        <button onclick="checkAnswer('Hyderabad')" class="start-btn">
-            A. Hyderabad
-        </button>
-
-        <button onclick="checkAnswer('Warangal')" class="start-btn">
-            B. Warangal
-        </button>
-
-        <button onclick="checkAnswer('Vijayawada')" class="start-btn">
-            C. Vijayawada
-        </button>
-
-        <button onclick="checkAnswer('Nizamabad')" class="start-btn">
-            D. Nizamabad
-        </button>
-
-        <div id="result" style="margin-top:20px;"></div>
+        <div id="resultBox" style="display:none;"></div>
 
     </div>
+
 </section>
 
 <script>
-function checkAnswer(answer) {
 
-    const result = document.getElementById("result");
+const questions = [
 
-    if (answer === "Hyderabad") {
+    {
+        topic: "History",
+        question: "The Charminar is located in which city?",
+        options: ["Hyderabad", "Warangal", "Nizamabad", "Karimnagar"],
+        answer: "Hyderabad",
+        explanation: "Charminar is a famous historical monument located in Hyderabad, Telangana.",
+        memory: "CHARMINAR → Four MINARS → Hyderabad"
+    },
 
-        result.innerHTML =
-        "<h3>✅ Correct!</h3>" +
-        "<p><b>Explanation:</b> The Charminar is a famous historical monument located in Hyderabad, Telangana.</p>" +
-        "<p><b>🧠 Memory Trick:</b> CHARMINAR → CHAR + MINAR → Think of the four minarets standing in the heart of Hyderabad.</p>";
+    {
+        topic: "Geography",
+        question: "Which river is known as the longest river in India?",
+        options: ["Godavari", "Ganga", "Krishna", "Narmada"],
+        answer: "Ganga",
+        explanation: "The Ganga is the longest river system in India.",
+        memory: "GANGA → Think of the major north Indian river system."
+    },
+
+    {
+        topic: "Polity",
+        question: "Who is known as the chief architect of the Indian Constitution?",
+        options: [
+            "Mahatma Gandhi",
+            "B. R. Ambedkar",
+            "Jawaharlal Nehru",
+            "Sardar Patel"
+        ],
+        answer: "B. R. Ambedkar",
+        explanation: "Dr. B. R. Ambedkar chaired the Drafting Committee of the Constituent Assembly.",
+        memory: "CONSTITUTION → DRAFTING COMMITTEE → AMBEDKAR"
+    },
+
+    {
+        topic: "Geography",
+        question: "Which is the largest state in India by area?",
+        options: ["Telangana", "Maharashtra", "Rajasthan", "Madhya Pradesh"],
+        answer: "Rajasthan",
+        explanation: "Rajasthan is the largest Indian state by geographical area.",
+        memory: "RAJASTHAN → Largest area"
+    },
+
+    {
+        topic: "History",
+        question: "Who founded the Maurya Empire?",
+        options: [
+            "Ashoka",
+            "Chandragupta Maurya",
+            "Harsha",
+            "Samudragupta"
+        ],
+        answer: "Chandragupta Maurya",
+        explanation: "Chandragupta Maurya founded the Maurya Empire.",
+        memory: "MAURYA EMPIRE → CHANDRAGUPTA"
+    },
+
+    {
+        topic: "Polity",
+        question: "How many Fundamental Rights are currently recognized in the Indian Constitution?",
+        options: ["5", "6", "7", "8"],
+        answer: "6",
+        explanation: "There are currently six Fundamental Rights in Part III of the Constitution.",
+        memory: "FUNDAMENTAL RIGHTS → 6"
+    },
+
+    {
+        topic: "Current Affairs",
+        question: "What does ISRO stand for?",
+        options: [
+            "Indian Space Research Organisation",
+            "Indian Science Research Office",
+            "International Space Research Organisation",
+            "Indian Satellite Research Organisation"
+        ],
+        answer: "Indian Space Research Organisation",
+        explanation: "ISRO is India's national space agency.",
+        memory: "ISRO → INDIAN SPACE RESEARCH ORGANISATION"
+    },
+
+    {
+        topic: "Geography",
+        question: "Which ocean lies to the south of India?",
+        options: [
+            "Atlantic Ocean",
+            "Indian Ocean",
+            "Pacific Ocean",
+            "Arctic Ocean"
+        ],
+        answer: "Indian Ocean",
+        explanation: "The Indian Ocean lies south of the Indian peninsula.",
+        memory: "INDIA → SOUTH → INDIAN OCEAN"
+    },
+
+    {
+        topic: "History",
+        question: "Who built the Taj Mahal?",
+        options: [
+            "Akbar",
+            "Shah Jahan",
+            "Aurangzeb",
+            "Babur"
+        ],
+        answer: "Shah Jahan",
+        explanation: "Mughal emperor Shah Jahan commissioned the Taj Mahal.",
+        memory: "TAJ MAHAL → SHAH JAHAN"
+    },
+
+    {
+        topic: "Current Affairs",
+        question: "Which technology is commonly used to generate artificial intelligence models?",
+        options: [
+            "Machine Learning",
+            "Typewriter",
+            "Telegraph",
+            "Analog Clock"
+        ],
+        answer: "Machine Learning",
+        explanation: "Machine learning is a major technology used to build many modern AI systems.",
+        memory: "AI → MACHINE LEARNING"
+    }
+
+];
+
+
+let currentQuestion = 0;
+let score = 0;
+
+let performance = {
+    History: { correct: 0, total: 0 },
+    Geography: { correct: 0, total: 0 },
+    Polity: { correct: 0, total: 0 },
+    "Current Affairs": { correct: 0, total: 0 }
+};
+
+
+function showQuestion() {
+
+    const q = questions[currentQuestion];
+
+    let html = "";
+
+    html += "<p><b>Question " +
+        (currentQuestion + 1) +
+        " of " +
+        questions.length +
+        "</b></p>";
+
+    html += "<p style='color:#173b7a;margin-top:8px;'>" +
+        "📚 " + q.topic +
+        "</p>";
+
+    html += "<h3 style='margin:20px 0;'>" +
+        q.question +
+        "</h3>";
+
+    html += `
+        <div style="
+        background:#f1f5ff;
+        padding:15px;
+        border-radius:10px;
+        margin-bottom:20px;">
+        
+        <p>👀 <b>Visual Learning</b></p>
+
+        <p style="font-size:14px;color:#555;">
+        A short visual explanation for this question will appear here.
+        </p>
+
+        <div style="
+        background:#111827;
+        color:white;
+        height:120px;
+        border-radius:8px;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        margin-top:10px;">
+        
+        🎬 10-second visual video
+        
+        </div>
+
+        </div>
+    `;
+
+    q.options.forEach(function(option) {
+
+        html += `
+        <button
+        onclick="answerQuestion('${option.replace(/'/g, "\\'")}')"
+        style="
+        display:block;
+        width:100%;
+        padding:14px;
+        margin:10px 0;
+        border:1px solid #ddd;
+        border-radius:8px;
+        background:white;
+        cursor:pointer;
+        text-align:left;
+        font-size:15px;">
+        
+        ${option}
+        
+        </button>
+        `;
+
+    });
+
+    document.getElementById("quizBox").innerHTML = html;
+
+}
+
+
+function answerQuestion(selected) {
+
+    const q = questions[currentQuestion];
+
+    performance[q.topic].total++;
+
+    if (selected === q.answer) {
+
+        score++;
+
+        performance[q.topic].correct++;
+
+        document.getElementById("quizBox").innerHTML = `
+
+            <div style="
+            background:#e9f8ef;
+            padding:20px;
+            border-radius:10px;">
+
+            <h3>✅ Correct!</h3>
+
+            <p style="margin-top:10px;">
+            ${q.explanation}
+            </p>
+
+            <p style="margin-top:10px;">
+            🧠 <b>Memory Trick:</b> ${q.memory}
+            </p>
+
+            </div>
+
+            <button
+            onclick="nextQuestion()"
+            class="start-btn">
+
+            Next Question →
+
+            </button>
+
+        `;
 
     } else {
 
-        result.innerHTML =
-        "<h3>❌ Incorrect</h3>" +
-        "<p>The correct answer is <b>Hyderabad</b>.</p>" +
-        "<p><b>🧠 Memory Trick:</b> Remember: Charminar = Hyderabad.</p>";
+        document.getElementById("quizBox").innerHTML = `
+
+            <div style="
+            background:#fff0f0;
+            padding:20px;
+            border-radius:10px;">
+
+            <h3>❌ Incorrect</h3>
+
+            <p style="margin-top:10px;">
+            Correct answer:
+            <b>${q.answer}</b>
+            </p>
+
+            <p style="margin-top:10px;">
+            📖 ${q.explanation}
+            </p>
+
+            <p style="margin-top:10px;">
+            🧠 <b>Memory Trick:</b> ${q.memory}
+            </p>
+
+            <div style="
+            margin-top:20px;
+            background:#111827;
+            color:white;
+            padding:25px;
+            border-radius:8px;
+            text-align:center;">
+
+            🎬 10-second visual explanation
+
+            </div>
+
+            </div>
+
+            <button
+            onclick="nextQuestion()"
+            class="start-btn">
+
+            Next Question →
+
+            </button>
+
+        `;
+
     }
+
 }
+
+
+function nextQuestion() {
+
+    currentQuestion++;
+
+    if (currentQuestion < questions.length) {
+
+        showQuestion();
+
+    } else {
+
+        showResults();
+
+    }
+
+}
+
+
+function showResults() {
+
+    document.getElementById("quizBox").style.display = "none";
+
+    const percentage =
+        Math.round((score / questions.length) * 100);
+
+    let resultHTML = `
+
+        <h2>🎯 Your Performance</h2>
+
+        <h1 style="
+        font-size:40px;
+        color:#173b7a;
+        margin:15px 0;">
+
+        ${score}/${questions.length}
+
+        </h1>
+
+        <p style="margin-bottom:25px;">
+        Overall Score: <b>${percentage}%</b>
+        </p>
+
+        <h3>📊 Subject Analysis</h3>
+
+    `;
+
+
+    for (let topic in performance) {
+
+        const data = performance[topic];
+
+        if (data.total === 0) continue;
+
+        const percent =
+            Math.round((data.correct / data.total) * 100);
+
+        let status = "";
+
+        if (percent >= 70) {
+
+            status = "🟢 Strong";
+
+        } else if (percent >= 50) {
+
+            status = "🟡 Needs Practice";
+
+        } else {
+
+            status = "🔴 Weak";
+
+        }
+
+        resultHTML += `
+
+            <div style="
+            padding:15px;
+            margin:10px 0;
+            background:#f5f7fb;
+            border-radius:8px;">
+
+            <b>${topic}</b>
+
+            <br>
+
+            ${data.correct}/${data.total} correct
+
+            <br>
+
+            ${status}
+
+            </div>
+
+        `;
+
+    }
+
+
+    resultHTML += `
+
+        <div style="
+        margin-top:25px;
+        padding:20px;
+        background:#fff4e5;
+        border-radius:10px;">
+
+        <h3>🧠 Your Weakness Detection</h3>
+
+        <p style="margin-top:10px;line-height:1.6;">
+
+        Your performance is analyzed by subject.
+        Subjects with lower accuracy need more revision.
+
+        </p>
+
+        <p style="margin-top:10px;">
+
+        🎯 Recommended:
+        Focus on your 🔴 Weak subjects first.
+
+        </p>
+
+        </div>
+
+        <button
+        onclick="location.reload()"
+        class="start-btn">
+
+        🔄 Try Again
+
+        </button>
+
+    `;
+
+
+    document.getElementById("resultBox").innerHTML =
+        resultHTML;
+
+    document.getElementById("resultBox").style.display =
+        "block";
+
+}
+
+
+showQuestion();
+
 </script>
 </body>
 </html>
