@@ -491,7 +491,417 @@ allowfullscreen>
 
     </div>
 
+</section><section class="section" id="kaziranga-test">
+
+    <h2>🧠 I Understand → Test Me</h2>
+
+    <div class="card" style="max-width:750px;margin:auto;">
+
+        <p style="line-height:1.6;">
+            You have explored Kaziranga visually.
+            Now let's check what you actually understood.
+        </p>
+
+        <div id="learningTest"></div>
+
+        <div id="learningResult" style="display:none;"></div>
+
+    </div>
+
 </section>
+
+
+<script>
+
+const kazirangaQuestions = [
+
+    {
+        area: "Location",
+        question: "Kaziranga National Park is located in which state?",
+        options: [
+            "Assam",
+            "West Bengal",
+            "Odisha",
+            "Kerala"
+        ],
+        answer: "Assam"
+    },
+
+    {
+        area: "Wildlife",
+        question: "Kaziranga is especially famous for which animal?",
+        options: [
+            "Asiatic Lion",
+            "One-horned Rhinoceros",
+            "Snow Leopard",
+            "Blackbuck"
+        ],
+        answer: "One-horned Rhinoceros"
+    },
+
+    {
+        area: "Environment",
+        question: "Which major river strongly shapes the ecosystem of Kaziranga?",
+        options: [
+            "Ganga",
+            "Godavari",
+            "Brahmaputra",
+            "Narmada"
+        ],
+        answer: "Brahmaputra"
+    },
+
+    {
+        area: "Importance",
+        question: "Kaziranga is recognized by UNESCO as what?",
+        options: [
+            "World Heritage Site",
+            "World Cultural Capital",
+            "Ramsar City",
+            "Biosphere City"
+        ],
+        answer: "World Heritage Site"
+    },
+
+    {
+        area: "History",
+        question: "In which year was Kaziranga inscribed as a UNESCO World Heritage Site?",
+        options: [
+            "1975",
+            "1980",
+            "1985",
+            "1990"
+        ],
+        answer: "1985"
+    }
+
+];
+
+
+let learningQuestion = 0;
+let learningScore = 0;
+
+let learningPerformance = {
+    Location: { correct: 0, total: 0 },
+    Wildlife: { correct: 0, total: 0 },
+    Environment: { correct: 0, total: 0 },
+    Importance: { correct: 0, total: 0 },
+    History: { correct: 0, total: 0 }
+};
+
+
+function showLearningQuestion() {
+
+    const q = kazirangaQuestions[learningQuestion];
+
+    let html = "";
+
+    html += `
+        <p style="margin-top:20px;">
+        <b>Question ${learningQuestion + 1}
+        of ${kazirangaQuestions.length}</b>
+        </p>
+
+        <p style="
+        color:#173b7a;
+        margin-top:10px;">
+
+        📚 Learning Area: <b>${q.area}</b>
+
+        </p>
+
+        <h3 style="
+        margin:20px 0;
+        line-height:1.5;">
+
+        ${q.question}
+
+        </h3>
+    `;
+
+
+    q.options.forEach(function(option) {
+
+        html += `
+        <button
+        onclick="answerLearningQuestion('${option}')"
+        style="
+        display:block;
+        width:100%;
+        padding:14px;
+        margin:10px 0;
+        border:1px solid #ddd;
+        border-radius:8px;
+        background:white;
+        cursor:pointer;
+        text-align:left;
+        font-size:15px;">
+
+        ${option}
+
+        </button>
+        `;
+
+    });
+
+
+    document.getElementById("learningTest").innerHTML = html;
+
+}
+
+
+function answerLearningQuestion(selected) {
+
+    const q = kazirangaQuestions[learningQuestion];
+
+    learningPerformance[q.area].total++;
+
+
+    if (selected === q.answer) {
+
+        learningScore++;
+
+        learningPerformance[q.area].correct++;
+
+        document.getElementById("learningTest").innerHTML = `
+
+            <div style="
+            background:#e9f8ef;
+            padding:20px;
+            border-radius:10px;">
+
+            <h3>✅ Correct!</h3>
+
+            <p style="margin-top:10px;">
+            You understood the ${q.area.toLowerCase()}
+            part of the topic.
+            </p>
+
+            </div>
+
+            <button
+            onclick="nextLearningQuestion()"
+            class="start-btn">
+
+            Next →
+
+            </button>
+        `;
+
+    } else {
+
+        document.getElementById("learningTest").innerHTML = `
+
+            <div style="
+            background:#fff0f0;
+            padding:20px;
+            border-radius:10px;">
+
+            <h3>❌ Not quite.</h3>
+
+            <p style="margin-top:10px;">
+            Correct answer:
+            <b>${q.answer}</b>
+            </p>
+
+            <p style="margin-top:10px;">
+            This indicates that the
+            <b>${q.area}</b> part may need more revision.
+            </p>
+
+            </div>
+
+            <button
+            onclick="nextLearningQuestion()"
+            class="start-btn">
+
+            Continue →
+
+            </button>
+        `;
+
+    }
+
+}
+
+
+function nextLearningQuestion() {
+
+    learningQuestion++;
+
+    if (learningQuestion < kazirangaQuestions.length) {
+
+        showLearningQuestion();
+
+    } else {
+
+        showLearningResult();
+
+    }
+
+}
+
+
+function showLearningResult() {
+
+    document.getElementById("learningTest").style.display =
+        "none";
+
+    const percentage =
+        Math.round(
+            (learningScore / kazirangaQuestions.length) * 100
+        );
+
+
+    let html = `
+
+        <h2 style="margin-top:20px;">
+        🎯 Your Learning Result
+        </h2>
+
+        <h1 style="
+        font-size:42px;
+        color:#173b7a;
+        margin:15px 0;">
+
+        ${learningScore}/${kazirangaQuestions.length}
+
+        </h1>
+
+        <p>
+        Understanding Score:
+        <b>${percentage}%</b>
+        </p>
+
+        <h3 style="margin-top:30px;">
+        🔍 What Did You Understand?
+        </h3>
+
+    `;
+
+
+    let weakestArea = "";
+    let weakestPercentage = 101;
+
+
+    for (let area in learningPerformance) {
+
+        const data = learningPerformance[area];
+
+        if (data.total === 0) continue;
+
+        const percent =
+            Math.round(
+                (data.correct / data.total) * 100
+            );
+
+
+        let status;
+
+        if (percent >= 80) {
+
+            status = "🟢 Strong";
+
+        } else if (percent >= 50) {
+
+            status = "🟡 Needs Practice";
+
+        } else {
+
+            status = "🔴 Weak";
+
+        }
+
+
+        if (percent < weakestPercentage) {
+
+            weakestPercentage = percent;
+            weakestArea = area;
+
+        }
+
+
+        html += `
+
+            <div style="
+            margin:12px 0;
+            padding:15px;
+            background:#f5f7fb;
+            border-radius:8px;">
+
+            <b>${area}</b>
+
+            <br>
+
+            ${data.correct}/${data.total} correct
+
+            <br>
+
+            ${status}
+
+            </div>
+
+        `;
+
+    }
+
+
+    html += `
+
+        <div style="
+        margin-top:25px;
+        padding:20px;
+        background:#fff4e5;
+        border-radius:12px;">
+
+        <h3>🧠 Your Weakest Learning Area</h3>
+
+        <p style="
+        font-size:20px;
+        font-weight:bold;
+        margin-top:10px;">
+
+        ${weakestArea}
+
+        </p>
+
+        <p style="
+        margin-top:10px;
+        line-height:1.6;">
+
+        Your next revision should focus on
+        <b>${weakestArea}</b> related information.
+
+        Try the map, real images, environment,
+        wildlife and related questions again.
+
+        </p>
+
+        </div>
+
+        <button
+        onclick="location.reload()"
+        class="start-btn">
+
+        🔄 Learn & Test Again
+
+        </button>
+
+    `;
+
+
+    document.getElementById("learningResult").innerHTML =
+        html;
+
+    document.getElementById("learningResult").style.display =
+        "block";
+
+}
+
+
+showLearningQuestion();
+
+        </script>
 <body>
 
 <header>
