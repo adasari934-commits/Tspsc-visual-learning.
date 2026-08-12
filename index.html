@@ -199,6 +199,58 @@
 <footer>
     © 2026 TSPSC Visual Learning | Built for Smart Preparation
 </footer>
+<section class="section" id="quiz">
+    <h2>🎯 TSPSC Visual Quiz</h2>
 
+    <div class="card" style="max-width:700px;margin:auto;text-align:left;">
+
+        <h3>Question 1</h3>
+
+        <p style="margin:15px 0;line-height:1.6;">
+            The historic Charminar is located in which city?
+        </p>
+
+        <button onclick="checkAnswer('Hyderabad')" class="start-btn">
+            A. Hyderabad
+        </button>
+
+        <button onclick="checkAnswer('Warangal')" class="start-btn">
+            B. Warangal
+        </button>
+
+        <button onclick="checkAnswer('Vijayawada')" class="start-btn">
+            C. Vijayawada
+        </button>
+
+        <button onclick="checkAnswer('Nizamabad')" class="start-btn">
+            D. Nizamabad
+        </button>
+
+        <div id="result" style="margin-top:20px;"></div>
+
+    </div>
+</section>
+
+<script>
+function checkAnswer(answer) {
+
+    const result = document.getElementById("result");
+
+    if (answer === "Hyderabad") {
+
+        result.innerHTML =
+        "<h3>✅ Correct!</h3>" +
+        "<p><b>Explanation:</b> The Charminar is a famous historical monument located in Hyderabad, Telangana.</p>" +
+        "<p><b>🧠 Memory Trick:</b> CHARMINAR → CHAR + MINAR → Think of the four minarets standing in the heart of Hyderabad.</p>";
+
+    } else {
+
+        result.innerHTML =
+        "<h3>❌ Incorrect</h3>" +
+        "<p>The correct answer is <b>Hyderabad</b>.</p>" +
+        "<p><b>🧠 Memory Trick:</b> Remember: Charminar = Hyderabad.</p>";
+    }
+}
+</script>
 </body>
 </html>
