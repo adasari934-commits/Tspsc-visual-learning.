@@ -953,6 +953,17 @@ showLearningQuestion();
 
     </div>
 </section>
+    <div style="text-align:center;margin:30px 0;">
+
+    <button
+        onclick="openVisualTopic('kaziranga')"
+        class="start-btn">
+
+        🦏 Explore Kaziranga Visually
+
+    </button>
+
+    </div>
 
 <section class="features">
 
@@ -1438,5 +1449,580 @@ function showResults() {
 showQuestion();
 
 </script>
+<script>
+
+/* =========================================
+   VISUAL TOPIC ENGINE
+   ========================================= */
+
+const visualTopics = {
+
+    kaziranga: {
+
+        title: "🦏 Kaziranga National Park",
+
+        question:
+        "Which national park is famous for the one-horned rhinoceros?",
+
+        location:
+        "Assam, India",
+
+        map:
+        "https://www.google.com/maps?q=Kaziranga+National+Park,+Assam&output=embed",
+
+        image:
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/Indian_Rhinoceros_Kaziranga.jpg/800px-Indian_Rhinoceros_Kaziranga.jpg",
+
+        environment:
+        "Kaziranga is located in the Brahmaputra floodplain and contains grasslands, wetlands and woodland areas.",
+
+        wildlife: [
+            "🦏 One-horned Rhinoceros",
+            "🐅 Tiger",
+            "🐘 Elephant",
+            "🐃 Wild Water Buffalo",
+            "🦌 Swamp Deer"
+        ],
+
+        history:
+        "Kaziranga's history as a protected area began in the early twentieth century. It was later declared a national park and was inscribed as a UNESCO World Heritage Site in 1985.",
+
+        importance: [
+            "Important habitat for the one-horned rhinoceros.",
+            "Major wildlife conservation area.",
+            "Important Brahmaputra floodplain ecosystem.",
+            "Rich biodiversity and birdlife.",
+            "UNESCO World Heritage Site."
+        ],
+
+        relatedLocations: [
+            "Assam",
+            "Brahmaputra River",
+            "Karbi Anglong Hills",
+            "Manas National Park",
+            "Orang National Park"
+        ],
+
+        video:
+        "https://www.youtube.com/embed/8cHFGVZPz1o",
+
+        memory:
+        "KAZIRANGA → ASSAM → BRAHMAPUTRA → RHINO",
+
+        questions: [
+
+            {
+                q: "Kaziranga National Park is located in which state?",
+                options: ["Assam", "Kerala", "Gujarat", "Odisha"],
+                answer: "Assam"
+            },
+
+            {
+                q: "Which animal is especially associated with Kaziranga?",
+                options: [
+                    "Asiatic Lion",
+                    "One-horned Rhinoceros",
+                    "Snow Leopard",
+                    "Blackbuck"
+                ],
+                answer: "One-horned Rhinoceros"
+            },
+
+            {
+                q: "Which major river influences Kaziranga's ecosystem?",
+                options: [
+                    "Ganga",
+                    "Krishna",
+                    "Brahmaputra",
+                    "Narmada"
+                ],
+                answer: "Brahmaputra"
+            },
+
+            {
+                q: "Kaziranga is recognized by UNESCO as a:",
+                options: [
+                    "World Heritage Site",
+                    "World Capital",
+                    "Biosphere City",
+                    "Cultural District"
+                ],
+                answer: "World Heritage Site"
+            }
+
+        ]
+
+    }
+
+};
+
+
+/* =========================================
+   GENERATE VISUAL PAGE
+   ========================================= */
+
+function openVisualTopic(topicID) {
+
+    const topic = visualTopics[topicID];
+
+    if (!topic) {
+
+        alert("Topic not found");
+
+        return;
+
+    }
+
+
+    let html = `
+
+    <section class="section">
+
+        <div class="card"
+        style="max-width:900px;margin:auto;text-align:left;">
+
+        <h2>${topic.title}</h2>
+
+        <h3 style="margin-top:25px;">
+        ❓ Exam Connection
+        </h3>
+
+        <p style="line-height:1.6;margin-top:10px;">
+        ${topic.question}
+        </p>
+
+
+        <!-- LOCATION -->
+
+        <div style="
+        margin-top:25px;
+        padding:20px;
+        background:#eef5ff;
+        border-radius:12px;">
+
+        <h3>🗺️ Actual Location</h3>
+
+        <p style="margin:10px 0;">
+        📍 ${topic.location}
+        </p>
+
+        <iframe
+        src="${topic.map}"
+        width="100%"
+        height="300"
+        style="border:0;border-radius:10px;"
+        loading="lazy">
+        </iframe>
+
+        </div>
+
+
+        <!-- IMAGE -->
+
+        <div style="margin-top:25px;">
+
+        <h3>📸 Real Image</h3>
+
+        <img
+        src="${topic.image}"
+        alt="${topic.title}"
+        style="
+        width:100%;
+        max-width:700px;
+        margin-top:15px;
+        border-radius:12px;">
+
+        </div>
+
+
+        <!-- ENVIRONMENT -->
+
+        <div style="
+        margin-top:25px;
+        padding:20px;
+        background:#f0fdf4;
+        border-radius:12px;">
+
+        <h3>🌿 Environment</h3>
+
+        <p style="line-height:1.7;margin-top:10px;">
+        ${topic.environment}
+        </p>
+
+        </div>
+
+
+        <!-- WILDLIFE -->
+
+        <div style="margin-top:25px;">
+
+        <h3>🦏 Important Wildlife</h3>
+
+        <div style="
+        display:grid;
+        grid-template-columns:
+        repeat(auto-fit,minmax(180px,1fr));
+        gap:10px;
+        margin-top:15px;">
+
+    `;
+
+
+    topic.wildlife.forEach(function(animal) {
+
+        html += `
+
+        <div style="
+        padding:18px;
+        background:#f8fafc;
+        border-radius:10px;
+        text-align:center;">
+
+        ${animal}
+
+        </div>
+
+        `;
+
+    });
+
+
+    html += `
+
+        </div>
+
+        </div>
+
+
+        <!-- HISTORY -->
+
+        <div style="
+        margin-top:25px;
+        padding:20px;
+        background:#fff7ed;
+        border-radius:12px;">
+
+        <h3>📜 Historical Background</h3>
+
+        <p style="line-height:1.7;margin-top:10px;">
+        ${topic.history}
+        </p>
+
+        </div>
+
+
+        <!-- IMPORTANCE -->
+
+        <div style="
+        margin-top:25px;
+        padding:20px;
+        background:#f5f3ff;
+        border-radius:12px;">
+
+        <h3>⭐ Why Is It Important?</h3>
+
+        <ul style="
+        line-height:1.8;
+        margin-top:10px;
+        padding-left:20px;">
+
+    `;
+
+
+    topic.importance.forEach(function(item) {
+
+        html += `<li>${item}</li>`;
+
+    });
+
+
+    html += `
+
+        </ul>
+
+        </div>
+
+
+        <!-- RELATED LOCATIONS -->
+
+        <div style="
+        margin-top:25px;
+        padding:20px;
+        background:#f8fafc;
+        border-radius:12px;">
+
+        <h3>🔗 Related Locations</h3>
+
+        <ul style="
+        line-height:2;
+        margin-top:10px;
+        padding-left:20px;">
+
+    `;
+
+
+    topic.relatedLocations.forEach(function(location) {
+
+        html += `<li>${location}</li>`;
+
+    });
+
+
+    html += `
+
+        </ul>
+
+        </div>
+
+
+        <!-- VIDEO -->
+
+        <div style="
+        margin-top:25px;
+        padding:20px;
+        background:#111827;
+        color:white;
+        border-radius:12px;">
+
+        <h3>🎬 Short Relevant Video</h3>
+
+        <iframe
+        width="100%"
+        height="315"
+        src="${topic.video}"
+        frameborder="0"
+        allowfullscreen
+        style="margin-top:15px;border-radius:10px;">
+        </iframe>
+
+        </div>
+
+
+        <!-- MEMORY -->
+
+        <div style="
+        margin-top:25px;
+        padding:20px;
+        background:#ecfeff;
+        border-radius:12px;">
+
+        <h3>🧠 Remember It</h3>
+
+        <p style="
+        font-size:20px;
+        font-weight:bold;
+        margin-top:10px;">
+
+        ${topic.memory}
+
+        </p>
+
+        </div>
+
+
+        <!-- QUESTIONS -->
+
+        <div style="margin-top:25px;">
+
+        <h3>📝 Related Examination Questions</h3>
+
+        <div id="visualQuestions"
+        style="margin-top:15px;">
+
+        </div>
+
+        </div>
+
+
+        <div id="visualResult"></div>
+
+        </div>
+
+    </section>
+
+    `;
+
+
+    document.getElementById("visualTopicArea").innerHTML =
+        html;
+
+
+    loadVisualQuestions(topic);
+
+}
+
+
+/* =========================================
+   QUESTIONS
+   ========================================= */
+
+function loadVisualQuestions(topic) {
+
+    const container =
+        document.getElementById("visualQuestions");
+
+    let html = "";
+
+    topic.questions.forEach(function(question,index) {
+
+        html += `
+
+        <div style="
+        margin:15px 0;
+        padding:18px;
+        background:#f8fafc;
+        border-radius:10px;">
+
+        <b>Q${index + 1}. ${question.q}</b>
+
+        <div style="margin-top:10px;">
+
+        `;
+
+
+        question.options.forEach(function(option) {
+
+            html += `
+
+            <button
+            onclick="checkVisualAnswer(
+            ${index},
+            '${option.replace(/'/g,"\\'")}'
+            )"
+            style="
+            display:block;
+            width:100%;
+            padding:12px;
+            margin:7px 0;
+            border:1px solid #ddd;
+            border-radius:8px;
+            background:white;
+            text-align:left;">
+
+            ${option}
+
+            </button>
+
+            `;
+
+        });
+
+
+        html += `
+
+        </div>
+
+        </div>
+
+        `;
+
+    });
+
+
+    container.innerHTML = html;
+
+}
+
+
+let visualCorrect = 0;
+let visualAnswered = 0;
+
+
+function checkVisualAnswer(index,selected) {
+
+    const question =
+        visualTopics.kaziranga.questions[index];
+
+
+    if (selected === question.answer) {
+
+        visualCorrect++;
+
+        alert("✅ Correct!");
+
+    } else {
+
+        alert(
+        "❌ Incorrect. Correct answer: "
+        + question.answer
+        );
+
+    }
+
+
+    visualAnswered++;
+
+
+    if (
+        visualAnswered ===
+        visualTopics.kaziranga.questions.length
+    ) {
+
+        showVisualResult();
+
+    }
+
+}
+
+
+function showVisualResult() {
+
+    const total =
+        visualTopics.kaziranga.questions.length;
+
+    const percentage =
+        Math.round(
+        (visualCorrect / total) * 100
+        );
+
+
+    let status;
+
+
+    if (percentage >= 80) {
+
+        status = "🟢 You understood this topic well.";
+
+    } else if (percentage >= 50) {
+
+        status = "🟡 You need a little more revision.";
+
+    } else {
+
+        status = "🔴 This topic needs more visual revision.";
+
+    }
+
+
+    document.getElementById("visualResult").innerHTML = `
+
+        <div style="
+        margin-top:25px;
+        padding:20px;
+        background:#fff4e5;
+        border-radius:12px;
+        text-align:center;">
+
+        <h2>🎯 Topic Result</h2>
+
+        <h1 style="
+        font-size:40px;
+        color:#173b7a;
+        margin:15px;">
+
+        ${visualCorrect}/${total}
+
+        </h1>
+
+        <p>${status}</p>
+
+        </div>
+
+    `;
+
+}
+
+            </script>
+    <div id="visualTopicArea"></div>
 </body>
 </html>
